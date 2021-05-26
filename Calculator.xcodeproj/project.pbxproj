@@ -14,6 +14,7 @@
 		E65082BD2654FDD70025F1A9 /* Calculator.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E65082BB2654FDD70025F1A9 /* Calculator.xcdatamodeld */; };
 		E65082BF2654FDE20025F1A9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E65082BE2654FDE20025F1A9 /* Assets.xcassets */; };
 		E65082C22654FDE20025F1A9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E65082C02654FDE20025F1A9 /* LaunchScreen.storyboard */; };
+		E65082CC265BA22A0025F1A9 /* Digit.swift in Sources */ = {isa = PBXBuildFile; fileRef = E65082CB265BA22A0025F1A9 /* Digit.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		E65082BE2654FDE20025F1A9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E65082C12654FDE20025F1A9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E65082C32654FDE20025F1A9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E65082CB265BA22A0025F1A9 /* Digit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Digit.swift; path = ../Digit.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +60,7 @@
 		E65082B12654FDD70025F1A9 /* Calculator */ = {
 			isa = PBXGroup;
 			children = (
+				E65082CB265BA22A0025F1A9 /* Digit.swift */,
 				E65082B22654FDD70025F1A9 /* AppDelegate.swift */,
 				E65082B42654FDD70025F1A9 /* SceneDelegate.swift */,
 				E65082B62654FDD70025F1A9 /* ViewController.swift */,
@@ -142,6 +145,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E65082B72654FDD70025F1A9 /* ViewController.swift in Sources */,
+				E65082CC265BA22A0025F1A9 /* Digit.swift in Sources */,
 				E65082BD2654FDD70025F1A9 /* Calculator.xcdatamodeld in Sources */,
 				E65082B32654FDD70025F1A9 /* AppDelegate.swift in Sources */,
 				E65082B52654FDD70025F1A9 /* SceneDelegate.swift in Sources */,
