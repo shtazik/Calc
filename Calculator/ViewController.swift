@@ -9,6 +9,7 @@ class ViewController: UIViewController {
     @IBAction func castling(_ sender: Any) {
     }
     @IBAction func division(_ sender: Any) {
+        math(mathfunc: "Division")
     }
     @IBAction func clear(_ sender: Any) {
     }
@@ -45,11 +46,12 @@ class ViewController: UIViewController {
         }
     }
     @IBAction func dot(_ sender: Any) {
-        pressPoint()
+        pointFlag = true
     }
     @IBAction func inverse(_ sender: Any) {
     }
     @IBAction func result(_ sender: Any) {
+        pressResult()
     }
     @IBAction func cleanMem(_ sender: Any) {
     }
@@ -60,10 +62,13 @@ class ViewController: UIViewController {
     @IBAction func memMinus(_ sender: Any) {
     }
     @IBAction func multiplication(_ sender: Any) {
+        math(mathfunc: "Multiply")
     }
     @IBAction func minus(_ sender: Any) {
+        math(mathfunc: "Minus")
     }
     @IBAction func plus(_ sender: Any) {
+        math(mathfunc: "Plus")
     }
     @IBOutlet weak var digitOne: Digit!
     @IBOutlet weak var digitTwo: Digit!
@@ -81,6 +86,7 @@ class ViewController: UIViewController {
     var numbers: [ModelOfNumber] = []
     var pointFlag: Bool = false
     var zeroFlag: Bool = true
+    var mathFunc: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -123,9 +129,55 @@ class ViewController: UIViewController {
             numbers.append(digit)
             showNumber(number: numbers)
         }
+        fillingRegX()
     }
-    func pressPoint(){
-        pointFlag = true
+    func fillingRegX(){
+        var preRegX = ""
+        for digit in numbers{
+            if digit.point == false{
+                preRegX += "\(digit.digit!)"
+            }
+            else{
+                preRegX += ("\(digit.digit!)" + ".")
+            }
+        }
+        registerX = Double(preRegX) ?? 0
+    }
+    func math(mathfunc: String){
+        registerY = registerX
+        registerX = 0
+        mathFunc = mathfunc
+        numbers.removeAll()
+        hideDigits()
+    }
+    func pressResult(){
+        var number: [String] = []
+        var element = ModelOfNumber(point: false)
+        numbers.removeAll()
+        switch mathFunc {
+        case "Plus":
+            registerX += registerY
+        case "Minus":
+            registerX = registerY - registerX
+        case "Division":
+            registerX = registerY / registerX
+        case "Multiply":
+            registerX = registerX * registerY
+        default:
+            print("Error")
+        }
+        registerY = 0
+        number = String(registerX).compactMap { str in String(str) }
+        for digit in number{
+            if digit == "."{
+                numbers[numbers.count - 1].point = true
+            }
+            else{
+                element.digit = Int(digit)
+                numbers.append(element)
+            }
+        }
+        showNumber(number: numbers)
     }
 }
 
