@@ -55,6 +55,20 @@ class ViewController: UIViewController {
         pointFlag = true
     }
     @IBAction func inverse(_ sender: Any) {
+        if minusFlag == true{
+            numbers.remove(at: 0)
+            showNumber(number: numbers)
+            fillingRegX()
+            minusFlag = false
+        }
+        else{
+            var minus = ModelOfNumber(point: false)
+            minus.digit = 10
+            numbers.insert(minus, at: 0)
+            showNumber(number: numbers)
+            fillingRegX()
+            minusFlag = true
+        }
     }
     @IBAction func result(_ sender: Any) {
         pressResult()
@@ -93,6 +107,7 @@ class ViewController: UIViewController {
     var pointFlag: Bool = false
     var zeroFlag: Bool = true
     var mathFunc: String = ""
+    var minusFlag: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -142,6 +157,10 @@ class ViewController: UIViewController {
     func fillingRegX(){
         var preRegX = ""
         for digit in numbers{
+            if digit.digit == 10{
+                preRegX += "-"
+                continue
+            }
             if digit.point == false{
                 preRegX += "\(digit.digit!)"
             }
@@ -167,6 +186,7 @@ class ViewController: UIViewController {
         }
     }
     func pressResult(){
+//        print("\(registerY) \(mathFunc) \(registerX)")
         switch mathFunc {
         case "Plus":
             registerX += registerY
@@ -189,7 +209,11 @@ class ViewController: UIViewController {
         registerY = 0
         number = String(registerX).compactMap { str in String(str) }
         for digit in number{
-            if digit == "."{
+            if digit == "-"{
+                element.digit = 10
+                numbers.append(element)
+            }
+            else if digit == "."{
                 numbers[numbers.count - 1].point = true
             }
             else{
@@ -197,6 +221,7 @@ class ViewController: UIViewController {
                 numbers.append(element)
             }
         }
+        print(numbers)
         showNumber(number: numbers)
     }
 }
