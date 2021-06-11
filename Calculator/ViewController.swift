@@ -3,6 +3,7 @@ import UIKit
 
 class ViewController: UIViewController {
     @IBAction func sqrt(_ sender: Any) {
+        math(mathfunc: "SquareRoot")
     }
     @IBAction func percent(_ sender: Any) {
     }
@@ -12,6 +13,11 @@ class ViewController: UIViewController {
         math(mathfunc: "Division")
     }
     @IBAction func clear(_ sender: Any) {
+        registerX = 0
+        registerY = 0
+        mathFunc = ""
+        numbers = []
+        hideDigits()
     }
     @IBAction func seven(_ sender: Any) {
         pressDigit(dIgit: 7)
@@ -115,21 +121,23 @@ class ViewController: UIViewController {
         }
     }
     func pressDigit(dIgit: Int){
-        if numbers.count != 9{
-            zeroFlag = false
-            if !pointFlag{
-                for (index, digit) in numbers.enumerated() {
-                    var digit = digit
-                    digit.point = false
-                    numbers[index] = digit
+        if !xRO{
+            if numbers.count != 9{
+                zeroFlag = false
+                if !pointFlag{
+                    for (index, digit) in numbers.enumerated() {
+                        var digit = digit
+                        digit.point = false
+                        numbers[index] = digit
+                    }
                 }
+                var digit = ModelOfNumber(point: !pointFlag)
+                digit.digit = dIgit
+                numbers.append(digit)
+                showNumber(number: numbers)
             }
-            var digit = ModelOfNumber(point: !pointFlag)
-            digit.digit = dIgit
-            numbers.append(digit)
-            showNumber(number: numbers)
+            fillingRegX()
         }
-        fillingRegX()
     }
     func fillingRegX(){
         var preRegX = ""
@@ -144,16 +152,21 @@ class ViewController: UIViewController {
         registerX = Double(preRegX) ?? 0
     }
     func math(mathfunc: String){
-        registerY = registerX
-        registerX = 0
         mathFunc = mathfunc
-        numbers.removeAll()
-        hideDigits()
+        if mathFunc == "SquareRoot"{
+            registerX = registerX.squareRoot()
+            convertToDigit()
+            xRO = true
+        }
+        else{
+            registerY = registerX
+            registerX = 0
+            numbers.removeAll()
+            hideDigits()
+            xRO = false
+        }
     }
     func pressResult(){
-        var number: [String] = []
-        var element = ModelOfNumber(point: false)
-        numbers.removeAll()
         switch mathFunc {
         case "Plus":
             registerX += registerY
@@ -166,6 +179,13 @@ class ViewController: UIViewController {
         default:
             print("Error")
         }
+        convertToDigit()
+    }
+    func convertToDigit(){
+        hideDigits()
+        numbers.removeAll()
+        var number: [String] = []
+        var element = ModelOfNumber(point: false)
         registerY = 0
         number = String(registerX).compactMap { str in String(str) }
         for digit in number{
