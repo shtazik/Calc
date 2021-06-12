@@ -75,12 +75,16 @@ class ViewController: UIViewController {
         pressResult()
     }
     @IBAction func cleanMem(_ sender: Any) {
+        clearMem()
     }
     @IBAction func readMem(_ sender: Any) {
+        readMem()
     }
     @IBAction func memPlus(_ sender: Any) {
+        memPlus()
     }
     @IBAction func memMinus(_ sender: Any) {
+        memMinus()
     }
     @IBAction func multiplication(_ sender: Any) {
         math(mathfunc: "Multiply")
@@ -103,6 +107,7 @@ class ViewController: UIViewController {
     
     var registerX: Double = 0
     var registerY: Double = 0
+    var memReg: Double = 0
     var xRO: Bool = false
     var numbers: [ModelOfNumber] = []
     var pointFlag: Bool = false
@@ -187,7 +192,6 @@ class ViewController: UIViewController {
         }
     }
     func pressResult(){
-        print("\(registerX) \(registerY)")
         switch mathFunc {
         case "Plus":
             registerX += registerY
@@ -225,7 +229,6 @@ class ViewController: UIViewController {
         showNumber(number: numbers)
     }
     func pressPercent(){
-        print("\(registerX) \(registerY)")
         switch mathFunc {
         case "Plus":
             registerX = registerY + (registerY * registerX / 100)
@@ -239,6 +242,19 @@ class ViewController: UIViewController {
             print("Error")
         }
         convertToDigit()
+    }
+    func readMem(){
+        registerX = memReg
+        convertToDigit()
+    }
+    func clearMem(){
+        memReg = 0
+    }
+    func memPlus(){
+        memReg += registerX
+    }
+    func memMinus(){
+        memReg -= registerX
     }
 }
 
