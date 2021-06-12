@@ -19,6 +19,7 @@ class ViewController: UIViewController {
         mathFunc = ""
         numbers = []
         hideDigits()
+        xRO = false
     }
     @IBAction func seven(_ sender: Any) {
         pressDigit(dIgit: 7)
@@ -209,24 +210,38 @@ class ViewController: UIViewController {
     func convertToDigit(){
         hideDigits()
         numbers.removeAll()
-        var number: [String] = []
-        var element = ModelOfNumber(point: false)
-        registerY = 0
-        number = String(registerX).compactMap { str in String(str) }
-        for digit in number{
-            if digit == "-"{
-                element.digit = 10
-                numbers.append(element)
-            }
-            else if digit == "."{
-                numbers[numbers.count - 1].point = true
-            }
-            else{
-                element.digit = Int(digit)
-                numbers.append(element)
-            }
+        if registerX >= 1000000000{
+            var error = ModelOfNumber(point: false)
+            error.digit = 11
+            digitEight.showDigit(model: error)
+            xRO = true
         }
-        showNumber(number: numbers)
+        else{
+            var number: [String] = []
+            var element = ModelOfNumber(point: false)
+            registerY = 0
+            number = String(registerX).compactMap { str in String(str) }
+            for digit in number{
+                if digit == "-"{
+                    element.digit = 10
+                    numbers.append(element)
+                }
+                else if digit == "."{
+                    numbers[numbers.count - 1].point = true
+                    if registerX.truncatingRemainder(dividingBy: 1) == 0{
+                        break
+                    }
+                }
+                else{
+                    element.digit = Int(digit)
+                    numbers.append(element)
+                    if numbers.count == 9{
+                        break
+                    }
+                }
+            }
+            showNumber(number: numbers)
+        }
     }
     func pressPercent(){
         switch mathFunc {
