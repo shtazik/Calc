@@ -6,6 +6,7 @@ class ViewController: UIViewController {
         math(mathfunc: "SquareRoot")
     }
     @IBAction func percent(_ sender: Any) {
+        pressPercent()
     }
     @IBAction func castling(_ sender: Any) {
     }
@@ -186,7 +187,7 @@ class ViewController: UIViewController {
         }
     }
     func pressResult(){
-//        print("\(registerY) \(mathFunc) \(registerX)")
+        print("\(registerX) \(registerY)")
         switch mathFunc {
         case "Plus":
             registerX += registerY
@@ -221,8 +222,23 @@ class ViewController: UIViewController {
                 numbers.append(element)
             }
         }
-        print(numbers)
         showNumber(number: numbers)
+    }
+    func pressPercent(){
+        print("\(registerX) \(registerY)")
+        switch mathFunc {
+        case "Plus":
+            registerX = registerY + (registerY * registerX / 100)
+        case "Minus":
+            registerX = registerY - (registerY * registerX / 100)
+        case "Division":
+            registerX = registerY / (registerY * registerX / 100)
+        case "Multiply":
+            registerX = registerX * (registerY * registerX / 100)
+        default:
+            print("Error")
+        }
+        convertToDigit()
     }
 }
 
